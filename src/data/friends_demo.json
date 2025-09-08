@@ -1,0 +1,112 @@
+[
+  {
+    "uid": "qa_demo_001",
+    "id": "s01e01-001",
+    "ja": "やあ、今日はどうだった？",
+    "en": "Hey, how was your day?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Alice", "ja": "アリス" }
+    }
+  },
+  {
+    "uid": "qa_demo_002",
+    "id": "s01e01-002",
+    "ja": "まあまあかな。ちょっと疲れたよ。",
+    "en": "Not bad. I'm a bit tired.",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Bob", "ja": "ボブ" }
+    }
+  },
+  {
+    "uid": "qa_demo_003",
+    "id": "s01e01-003",
+    "ja": "コーヒーでも飲む？",
+    "en": "Do you want some coffee?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Alice", "ja": "アリス" }
+    }
+  },
+  {
+    "uid": "qa_demo_004",
+    "id": "s01e01-004",
+    "ja": "いいね。助かるよ。",
+    "en": "That sounds great. Thanks.",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Bob", "ja": "ボブ" }
+    }
+  },
+  {
+    "uid": "qa_demo_005",
+    "id": "s01e01-005",
+    "ja": "そういえば、週末の予定はどう？",
+    "en": "By the way, do you have any plans for the weekend?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Alice", "ja": "アリス" }
+    }
+  },
+  {
+    "uid": "qa_demo_006",
+    "id": "s01e01-006",
+    "ja": "特にないよ。君は？",
+    "en": "Not really. How about you?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Bob", "ja": "ボブ" }
+    }
+  },
+  {
+    "uid": "qa_demo_007",
+    "id": "s01e01-007",
+    "ja": "映画を見に行こうと思ってるんだ。一緒に行かない？",
+    "en": "I'm thinking of going to the movies. Want to join?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Alice", "ja": "アリス" }
+    }
+  },
+  {
+    "uid": "qa_demo_008",
+    "id": "s01e01-008",
+    "ja": "いいね！楽しみにしてるよ。",
+    "en": "Sounds good! I'm looking forward to it.",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Bob", "ja": "ボブ" }
+    }
+  },
+  {
+    "uid": "qa_demo_009",
+    "id": "s01e01-009",
+    "ja": "じゃあ土曜の午後でどう？",
+    "en": "How about Saturday afternoon then?",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Alice", "ja": "アリス" }
+    }
+  },
+  {
+    "uid": "qa_demo_010",
+    "id": "s01e01-010",
+    "ja": "うん、それで決まりだね。",
+    "en": "Yeah, it's a deal.",
+    "meta": {
+      "season": 1,
+      "episode": 1,
+      "speaker": { "en": "Bob", "ja": "ボブ" }
+    }
+  }
+]
