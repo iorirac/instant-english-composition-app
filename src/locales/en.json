@@ -1,0 +1,16 @@
+{
+  "hidden": "(Answer hidden / press Space)",
+  "showAnswer": "Show Answer (Space)",
+  "hideAnswer": "Hide (Space)",
+  "next": "Next (N / →)",
+  "hiddenMobile": "(Answer hidden, tap to show)",
+  "showAnswerMobile": "Show Answer",
+  "hideAnswerMobile": "Hide",
+  "nextMobile": "Next",
+  "label": {
+    "ja": "Japanese",
+    "en": "English"
+  },
+  "title": "Friends Instant Composition",
+  "nothing": "nothing"
+}

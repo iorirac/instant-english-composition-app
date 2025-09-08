@@ -1,0 +1,16 @@
+{
+  "hidden": "（答えは非表示 / Spaceで表示）",
+  "showAnswer": "答えを見る (Space)",
+  "hideAnswer": "隠す (Space)",
+  "next": "次へ (N / →)",
+  "hiddenMobile": "（答えは非表示。タップで表示）",
+  "showAnswerMobile": "答えを見る",
+  "hideAnswerMobile": "隠す",
+  "nextMobile": "次へ",
+  "label": {
+    "ja": "日本語",
+    "en": "英語"
+  },
+  "title": "フレンズ 瞬間英作文",
+  "nothing": "なし"
+}
