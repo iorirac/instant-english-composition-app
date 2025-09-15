@@ -4,21 +4,7 @@ import jaMessages from "@/locales/ja.json";
 import enMessages from "@/locales/en.json";
 // demo
 import raw from "@/data/friends_demo.json";
-
-// 使用可能な言語コードを定義
-export type Lang = "ja" | "en";
-
-// Speakerの型定義
-export type Speaker = { en: string; ja: string };
-
-// 質問・回答データの型定義
-export type QA = {
-  uid: string;
-  id: string | null;
-  ja: string;
-  en: string;
-  meta?: { season?: number; episode?: number; speaker?: Speaker } | null;
-};
+import type { QA, Lang } from "@/types/models";
 
 // QAデータのリストを保持するatom（デモデータを初期値として使用）
 export const qaListAtom = atom((raw as QA[]).map((i) => ({ ...i })));
@@ -56,3 +42,30 @@ export const answerLangAtom = atom<Lang>((get) =>
 export const messagesAtom = atom((get) =>
   get(reverseAtom) ? enMessages : jaMessages
 );
+
+// APIからQAを読み込み・反映するための状態とアクション
+export const qaLoadingAtom = atom<boolean>(false);
+export const qaErrorAtom = atom<string | null>(null);
+export const qaSourceAtom = atom<"demo" | "remote">("demo");
+
+// 書き込み専用アトム: 呼び出すとAPIから取得し qaListAtom を更新
+export const loadQaFromApiAtom = atom(null, async (_get, set) => {
+  set(qaLoadingAtom, true);
+  set(qaErrorAtom, null);
+  try {
+    const res = await fetch("/api/translation");
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({} as { message?: string }));
+      throw new Error(err?.message || `HTTP ${res.status}`);
+    }
+    const data = (await res.json()) as QA[];
+    set(qaListAtom, data);
+    set(qaSourceAtom, "remote");
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "読み込みに失敗しました";
+    set(qaErrorAtom, msg);
+    // フォールバック: 何もしなければ demo 初期値を保持（または既存データを維持）
+  } finally {
+    set(qaLoadingAtom, false);
+  }
+});

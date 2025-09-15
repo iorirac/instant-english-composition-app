@@ -11,6 +11,8 @@ import Controls from "@/components/QA/Controls";
 import Meta from "@/components/QA/Meta";
 import Progress from "@/components/QA/Progress";
 import { createAppTheme } from "@/themes/theme";
+import { useLoadQaOnce } from "@/hooks/useLoadQa";
+import LoadStatus from "@/components/AppShell/LoadStatus";
 
 export default function App() {
   return (
@@ -23,6 +25,7 @@ export default function App() {
 function ThemedApp() {
   const [mode] = useAtom(modeAtom);
   const theme = useMemo(() => createAppTheme(mode), [mode]);
+  const { loading, error, reload } = useLoadQaOnce();
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,6 +40,7 @@ function ThemedApp() {
           sx={{ py: 5, flex: 1, display: "flex", alignItems: "center" }}
         >
           <Box sx={{ width: "100%" }}>
+            <LoadStatus loading={loading} error={error} onRetry={reload} />
             <Meta />
             <Prompt />
             <Answer />

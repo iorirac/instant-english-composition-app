@@ -4,7 +4,8 @@ export const createAppTheme = (mode: "light" | "dark") =>
   createTheme({
     palette: {
       mode,
-      primary: { main: "#1976d2" },
+      // ダーク/ライトで主要色を切り替え
+      primary: { main: mode === "light" ? "#1976d2" : "#90caf9" },
       background: {
         default: mode === "light" ? "#f5f7fb" : "#0b0f19",
         paper: mode === "light" ? "#ffffff" : "#111827",
