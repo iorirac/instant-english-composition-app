@@ -2,20 +2,28 @@ import { useEffect } from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
   qaListAtom,
-  qaLoadingAtom,
-  qaErrorAtom,
   loadQaFromApiAtom,
+  idTokenAtom,
+  qaSourceAtom,
 } from "@/state/atoms";
+import raw from "@/data/friends_demo.json";
+import type { QA } from "@/types/models";
 
-export function useLoadQaOnce() {
+// 認証状態に応じてQAデータを同期する
+// ログイン時はAPIからデータを取得する
+// ログアウト時はデモデータを使用する
+export function useSyncQaWithAuth() {
+  const token = useAtomValue(idTokenAtom);
   const reload = useSetAtom(loadQaFromApiAtom);
-  const data = useAtomValue(qaListAtom);
-  const loading = useAtomValue(qaLoadingAtom);
-  const error = useAtomValue(qaErrorAtom);
+  const setList = useSetAtom(qaListAtom);
+  const setSource = useSetAtom(qaSourceAtom);
 
   useEffect(() => {
-    reload().catch(() => void 0);
-  }, [reload]);
-
-  return { data, loading, error, reload };
+    if (token) {
+      reload().catch(() => void 0);
+    } else {
+      setList((raw as QA[]).map((i) => ({ ...i })));
+      setSource("demo");
+    }
+  }, [token, reload, setList, setSource]);
 }

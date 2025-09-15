@@ -14,5 +14,7 @@
   "title": "フレンズ 瞬間英作文",
   "nothing": "なし",
   "loading": "読み込み中…",
-  "retry": "再試行"
+  "retry": "再試行",
+  "login": "ログイン",
+  "logout": "ログアウト"
 }

@@ -14,5 +14,7 @@
   "title": "Friends Instant Composition",
   "nothing": "nothing",
   "loading": "Loading…",
-  "retry": "Retry"
+  "retry": "Retry",
+  "login": "Login",
+  "logout": "Logout"
 }

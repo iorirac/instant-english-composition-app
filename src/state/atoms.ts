@@ -48,23 +48,30 @@ export const qaLoadingAtom = atom<boolean>(false);
 export const qaErrorAtom = atom<string | null>(null);
 export const qaSourceAtom = atom<"demo" | "remote">("demo");
 
+// 認証（Google IDトークン）
+export const idTokenAtom = atomWithStorage<string | null>("auth.idToken", null);
+
 // 書き込み専用アトム: 呼び出すとAPIから取得し qaListAtom を更新
-export const loadQaFromApiAtom = atom(null, async (_get, set) => {
+export const loadQaFromApiAtom = atom(null, async (get, set) => {
   set(qaLoadingAtom, true);
   set(qaErrorAtom, null);
   try {
-    const res = await fetch("/api/translation");
+    const token = get(idTokenAtom);
+    const res = await fetch("/api/translation", {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    });
     if (!res.ok) {
-      const err = await res.json().catch(() => ({} as { message?: string }));
-      throw new Error(err?.message || `HTTP ${res.status}`);
+      // 認可されないユーザーはログイン状態は維持しつつデモを使う
+      if (res.status === 401 || res.status === 403 || res.status === 503) {
+        set(qaSourceAtom, "demo");
+      }
+      return; // 画面にはエラーを出さない
     }
     const data = (await res.json()) as QA[];
     set(qaListAtom, data);
     set(qaSourceAtom, "remote");
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : "読み込みに失敗しました";
-    set(qaErrorAtom, msg);
-    // フォールバック: 何もしなければ demo 初期値を保持（または既存データを維持）
+  } catch {
+    // 何もしない
   } finally {
     set(qaLoadingAtom, false);
   }
