@@ -12,5 +12,9 @@
     "en": "English"
   },
   "title": "Friends Instant Composition",
-  "nothing": "nothing"
+  "nothing": "nothing",
+  "loading": "Loading…",
+  "retry": "Retry",
+  "login": "Login",
+  "logout": "Logout"
 }

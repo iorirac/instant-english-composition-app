@@ -11,4 +11,9 @@ export default defineConfig({
       "@types": fileURLToPath(new URL("./types", import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
 });

@@ -4,21 +4,7 @@ import jaMessages from "@/locales/ja.json";
 import enMessages from "@/locales/en.json";
 // demo
 import raw from "@/data/friends_demo.json";
-
-// 使用可能な言語コードを定義
-export type Lang = "ja" | "en";
-
-// Speakerの型定義
-export type Speaker = { en: string; ja: string };
-
-// 質問・回答データの型定義
-export type QA = {
-  uid: string;
-  id: string | null;
-  ja: string;
-  en: string;
-  meta?: { season?: number; episode?: number; speaker?: Speaker } | null;
-};
+import type { QA, Lang } from "@/types/models";
 
 // QAデータのリストを保持するatom（デモデータを初期値として使用）
 export const qaListAtom = atom((raw as QA[]).map((i) => ({ ...i })));
@@ -56,3 +42,37 @@ export const answerLangAtom = atom<Lang>((get) =>
 export const messagesAtom = atom((get) =>
   get(reverseAtom) ? enMessages : jaMessages
 );
+
+// APIからQAを読み込み・反映するための状態とアクション
+export const qaLoadingAtom = atom<boolean>(false);
+export const qaErrorAtom = atom<string | null>(null);
+export const qaSourceAtom = atom<"demo" | "remote">("demo");
+
+// 認証（Google IDトークン）
+export const idTokenAtom = atomWithStorage<string | null>("auth.idToken", null);
+
+// 書き込み専用アトム: 呼び出すとAPIから取得し qaListAtom を更新
+export const loadQaFromApiAtom = atom(null, async (get, set) => {
+  set(qaLoadingAtom, true);
+  set(qaErrorAtom, null);
+  try {
+    const token = get(idTokenAtom);
+    const res = await fetch("/api/translation", {
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    });
+    if (!res.ok) {
+      // 認可されないユーザーはログイン状態は維持しつつデモを使う
+      if (res.status === 401 || res.status === 403 || res.status === 503) {
+        set(qaSourceAtom, "demo");
+      }
+      return; // 画面にはエラーを出さない
+    }
+    const data = (await res.json()) as QA[];
+    set(qaListAtom, data);
+    set(qaSourceAtom, "remote");
+  } catch {
+    // 何もしない
+  } finally {
+    set(qaLoadingAtom, false);
+  }
+});

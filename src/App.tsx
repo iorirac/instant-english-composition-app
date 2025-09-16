@@ -11,6 +11,7 @@ import Controls from "@/components/QA/Controls";
 import Meta from "@/components/QA/Meta";
 import Progress from "@/components/QA/Progress";
 import { createAppTheme } from "@/themes/theme";
+import { useSyncQaWithAuth } from "@/hooks/useLoadQa";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
 function ThemedApp() {
   const [mode] = useAtom(modeAtom);
   const theme = useMemo(() => createAppTheme(mode), [mode]);
+  useSyncQaWithAuth();
 
   return (
     <ThemeProvider theme={theme}>
