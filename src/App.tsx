@@ -38,7 +38,7 @@ function ThemedApp() {
           maxWidth="md"
           sx={{ py: 5, flex: 1, display: "flex", alignItems: "center" }}
         >
-          <Box sx={{ width: "100%" }}>
+          <Box component="main" sx={{ width: "100%" }}>
             <Meta />
             <Prompt />
             <Answer />
