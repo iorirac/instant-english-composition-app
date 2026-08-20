@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <AppBar elevation={0} color="primary">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" component="h1" sx={{ flexGrow: 1, fontSize: { xs: '1rem', sm: '1.25rem' } }}>
           {messages.title}
         </Typography>
         <Box sx={{ mr: 1 }}>
@@ -51,12 +51,14 @@ export default function Header() {
           color="inherit"
           onClick={() => setReverse((v) => !v)}
           sx={{ mr: 1 }}
+          aria-label="Toggle language direction"
         >
           {reverse ? "EN→JA" : "JA→EN"}
         </Button>
         <IconButton
           color="inherit"
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
+          aria-label="Toggle theme"
         >
           {mode === "light" ? <Brightness4 /> : <Brightness7 />}
         </IconButton>

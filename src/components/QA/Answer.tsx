@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useAtom } from "jotai";
 import {
   showAtom,
@@ -12,6 +12,8 @@ export default function Answer() {
   const [current] = useAtom(currentAtom);
   const [aLang] = useAtom(answerLangAtom);
   const [messages] = useAtom(messagesAtom);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Box
@@ -24,7 +26,7 @@ export default function Answer() {
         borderRadius: 2,
         p: 2,
         minHeight: 60,
-        fontSize: 20,
+        fontSize: { xs: 16, sm: 20 },
       })}
       aria-live="polite"
     >
@@ -33,8 +35,8 @@ export default function Answer() {
           <strong>{messages.label[aLang]}：</strong> {current[aLang]}
         </>
       ) : (
-        <Typography component="span" color="text.disabled">
-          {messages.hidden}
+        <Typography component="span" color="text.secondary">
+          {isMobile ? messages.hiddenMobile : messages.hidden}
         </Typography>
       )}
     </Box>
